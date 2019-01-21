@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build: 
+      context: ./
+      dockerfile: web.Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9001:9001"
+    volumes:
+      - ./www:/var/www/html
+      - ./apache_log:/var/log/apache2
+    restart: always
+    image: web_image
+    container_name: web_container
+  db:
+    build: 
+      context: ./
+      dockerfile: mysql.Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./mysql_log:/var/log/mysql
+    restart: always
+    image: db_image
+    container_name: db_container
